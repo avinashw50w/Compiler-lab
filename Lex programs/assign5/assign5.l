@@ -1,0 +1,27 @@
+%{
+#include<stdio.h>
+int lines = 0, words = 0, characters = 0, spaces = 0, num = 0;
+%}
+
+%%
+
+\n { lines++; words++; }
+[\t ' '] { words++; spaces++; }
+[a-zA-Z] characters++;
+[0-9] num++;
+
+%%
+
+int main() {
+   yyin= fopen("inp.txt","r");
+   yylex();
+   printf(" This File contains ...");
+   printf("\n\t%d lines", lines);
+   printf("\n\t%d words", words);
+   printf("\n\t%d characters", characters);
+   printf("\n\t%d digits", num);
+   printf("\n\t%d spaces",spaces);
+   printf("\n");
+}
+ 
+int yywrap() { return(1); }
